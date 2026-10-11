@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/M-China/mcd-mcp-server/main/README.md",
+  "_comment": "麦当劳 MCP 配置示例（脱敏）。只允许环境变量占位符，请勿在此文件中写入真实 Token。",
+  "mcpServers": {
+    "mcd-mcp": {
+      "type": "streamablehttp",
+      "url": "https://mcp.mcd.cn",
+      "headers": {
+        "Authorization": "Bearer ${MCD_MCP_TOKEN}"
+      },
+      "env": {
+        "MCD_MCP_TOKEN": "YOUR_MCP_TOKEN"
+      },
+      "description": "麦当劳中国 MCP Server：菜单/价格/优惠券/积分/活动日历等 33 个 Tool；Token 申请 https://open.mcd.cn/mcp"
+    }
+  },
+  "mcsaver": {
+    "skill": "mcsaver",
+    "entry": "python scripts/mcsaver.py",
+    "env": {
+      "MCD_MCP_TOKEN": "YOUR_MCP_TOKEN",
+      "MCD_MCP_ENDPOINT": "https://mcp.mcd.cn"
+    },
+    "read_only_tools": [
+      "query-nearby-stores",
+      "query-meals",
+      "query-meal-detail",
+      "query-store-coupons",
+      "available-coupons",
+      "auto-bind-coupons",
+      "query-my-coupons",
+      "query-my-account",
+      "calculate-price",
+      "campaign-calendar"
+    ],
+    "never_calls": [
+      "create-order",
+      "cancel-order",
+      "mall-create-order",
+      "party-order-create",
+      "draw-lottery",
+      "delivery-create-address"
+    ]
+  }
+}
